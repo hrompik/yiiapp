@@ -1,8 +1,8 @@
-Тестирование на Windows + wsl2 / Ubuntu 20.04 LTS, пользователь например userapp/userapp123, ip server 172.22.133.129
+Тестирование на Windows + wsl2 / Ubuntu 20.04 LTS, пользователь например userapp/userapp123, ip server 172.21.228.190
 Фронт и бэк на 2 доменах, тестово для доступа из под винды два домена пропишем в
 C:\Windows\System32\drivers\etc\hosts:
-172.22.133.129  front.local
-172.22.133.129  back.local
+172.21.228.190  front.local
+172.21.228.190  back.local
 
 Идём по ssh на сервер, вводим, энтер, ждёмс, и следующую строку
 
@@ -11,11 +11,8 @@ sudo su
 sudo apt update
 sudo apt install -y nano apache2 git mysql-server mysql-client curl unzip php7.4 php-mysql php7.4-curl phpunit
 
-//Что то убирающее небольшную ошибку
 sudo usermod -d /var/lib/mysql/ mysql
-//стартуем БД
 sudo service mysql start
-//настройки доступа БД
 sudo mysql_secure_installation
 Отвечаем-с:
 n
@@ -30,37 +27,37 @@ GRANT ALL PRIVILEGES ON yiiaap.* TO 'user'@'localhost';
 FLUSH PRIVILEGES;
 exit
 
-cd /var/www/html
+cd /var/www
 sudo git clone https://github.com/hrompik/yiiapp.git
-cd /var/www/html/yiiapp
-
+cd /var/www/yiiapp
 
 sudo curl -sS https://getcomposer.org/installer -o composer-setup.php
 sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
-sudo chown -R userapp /var/www/
-
-
-sudo nano /var/www/html/yiiapp/environments/dev/common/config/main-local.php меняем пользователя жмём контрол S контрол X
-cd /var/www/html/yiiapp
-php init
+sudo nano /var/www/yiiapp/environments/dev/common/config/main-local.php
+cd /var/www/yiiapp
+sudo php init
 отвечаемс 0 y
 exit
 
-cd /var/www/html/yiiapp
+sudo chown -R `whoami` /var/www/
+cd /var/www/yiiapp
 composer u
 
 sudo su
 sudo a2enmod rewrite
-sudo cp /var/www/html/yiiapp/apache_conf/front.local.conf /etc/apache2/sites-available/front.local.conf
-sudo cp /var/www/html/yiiapp/apache_conf/back.local.conf /etc/apache2/sites-available/back.local.conf
-
-sudo a2ensite back.local
+sudo cp /var/www/yiiapp/apache_conf/front.local.conf /etc/apache2/sites-available/front.local.conf
 sudo a2ensite front.local
+
+sudo cp /var/www/yiiapp/apache_conf/back.local.conf /etc/apache2/sites-available/back.local.conf
+sudo a2ensite back.local
+
 
 
 sudo service apache2 restart
 
-cd /var/www/html/yiiapp
+cd /var/www/yiiapp
 sudo php yii migrate --migrationPath=@yii/rbac/migrations/
+y
 sudo php yii migrate
+y
