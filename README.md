@@ -23,7 +23,7 @@ ip server 172.21.228.190 Фронт и бэк на 2 доменах,
 ## Настраиваем доступ к базам, отвечаем: n, создаем пароль для root для mysql/userapp123, y y y y 
 	sudo mysql_secure_installation
 
-## cоздаем в mysql бд, и пользователя,добавляем права которые потом пропишем в конфиг
+## cоздаем в mysql бд, и пользователя которые потом пропишем в конфиг !!! запоминаем, добавляем права 
 	mysql
 	CREATE DATABASE yiiaap;
 	CREATE USER 'user'@'localhost' IDENTIFIED BY 'qweqweqwe';
@@ -35,6 +35,7 @@ ip server 172.21.228.190 Фронт и бэк на 2 доменах,
 	cd /var/www
 	sudo git clone https://github.com/hrompik/yiiapp.git
 	cd /var/www/yiiapp
+	
 ## устанавливаем композер
 	sudo curl -sS https://getcomposer.org/installer -o composer-setup.php
 	sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
