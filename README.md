@@ -1,8 +1,6 @@
-## Тестирование на Windows + wsl2 / Ubuntu 20.04 LTS, пользователь на сервере например userapp/userapp123, ip server 172.21.228.190
-## Фронт и бэк на 2 доменах, тестово для доступа из под винды два домена
-## пропишем в C:\Windows\System32\drivers\etc\hosts:
-## 172.21.228.190  front.local
-## 172.21.228.190  back.local
+## Тестирование на Windows + wsl2 / Ubuntu 20.04 LTS, пользователь на сервере например userapp/userapp123, ip server 172.21.228.190 Фронт и бэк на 2 доменах, тестово для доступа из под винды два домена пропишем в C:\Windows\System32\drivers\etc\hosts:
+	172.21.228.190  front.local
+	172.21.228.190  back.local
 
 ## Идём по ssh на сервер,
 
