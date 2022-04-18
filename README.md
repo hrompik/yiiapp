@@ -25,33 +25,23 @@ ip server 172.21.228.190 Фронт и бэк на 2 доменах,
 
 ## cоздаем в mysql бд, и пользователя,добавляем права которые потом пропишем в конфиг
 	mysql
-
 	CREATE DATABASE yiiaap;
-
 	CREATE USER 'user'@'localhost' IDENTIFIED BY 'qweqweqwe';
-
 	GRANT ALL PRIVILEGES ON yiiaap.* TO 'user'@'localhost';
-
 	FLUSH PRIVILEGES;
-
 	exit
 
 ## выкачиваем репозиторий
 	cd /var/www
-
 	sudo git clone https://github.com/hrompik/yiiapp.git
-
 	cd /var/www/yiiapp
 ## устанавливаем композер
 	sudo curl -sS https://getcomposer.org/installer -o composer-setup.php
-
 	sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 ## заходим в настройки yii испольуем dev конфиг, и потом его инициацию, либо выбираемс прод и потом тож
 	sudo nano /var/www/yiiapp/environments/dev/common/config/main-local.php
-
 	cd /var/www/yiiapp
-
 	sudo php init
 ## отвечаемс 0 y, и выходим из под рута для композера
 	exit
@@ -63,15 +53,10 @@ ip server 172.21.228.190 Фронт и бэк на 2 доменах,
 
 ## заходим в рут, включаем мод реврайт в апаче, и добавлем 2 виртуальых хоста с доменами, изменить название и внутри пару строк на нужные домены если есть
 	sudo su
-
 	sudo a2enmod rewrite
-
 	sudo cp /var/www/yiiapp/apache_conf/front.local.conf /etc/apache2/sites-available/front.local.conf
-
 	sudo a2ensite front.local
-
 	sudo cp /var/www/yiiapp/apache_conf/back.local.conf /etc/apache2/sites-available/back.local.conf
-
 	sudo a2ensite back.local
 
 ## запускаем апач
@@ -79,7 +64,6 @@ ip server 172.21.228.190 Фронт и бэк на 2 доменах,
 
 ## Запускаем миграции rbac и текущие
 	cd /var/www/yiiapp
-
 	sudo php yii migrate --migrationPath=@yii/rbac/migrations/
 ## y
 	sudo php yii migrate
