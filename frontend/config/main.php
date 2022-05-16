@@ -43,6 +43,11 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '/profile' => 'site/profile',
+                '<controller:(admin)>/staff' => 'staff/index',
+                '<controller:(admin)>/staff/<action:(new|view|update|delete)>' => 'staff/<action>',
+                'admin/staff/<user_id:\d+>' => 'staff/view',
+                'admin/staff/<user_id:\d+>/delete' => 'staff/delete',
+                'admin/staff/<user_id:\d+>/update' => 'staff/update',
             ],
         ],
         'authManager' => [
